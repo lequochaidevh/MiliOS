@@ -1,0 +1,6 @@
+# gitignore folder
+build/
+*.ignore
+*_ignore
+*.notrack
+*.
