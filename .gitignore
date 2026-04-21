@@ -3,4 +3,4 @@ build/
 *.ignore
 *_ignore
 *.notrack
-*.
+reference/repo/
