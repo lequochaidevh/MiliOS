@@ -36,10 +36,10 @@ haris_task_t         task_console;
 haris_task_polling_t task_polling_console;
 
 /* banner */
-static void haris_banner();
+// static void haris_banner();
 
 void haris_banner() {
-    HARIS_LOG("\n\n\n");
+    HARIS_LOG("\n");
     HARIS_LOG(" _   _   ___  ______  _____  _____ \n");
     HARIS_LOG("| | | | / _ \\ | ___ \\|_   _|/  ___|\n");
     HARIS_LOG("| |_| |/ /_\\ \\| |_/ /  | |  \\ `--. \n");

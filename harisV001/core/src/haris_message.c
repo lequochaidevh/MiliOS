@@ -7,9 +7,9 @@
  **/
 
 #include "haris_message.h"
+#include <stdio.h>
 
-// #include "haris_log.h"
-// #include "haris_common.h"
+#include "haris_common.h"
 
 /* pure message pool memory */
 static haris_pure_msg_t pure_msg_pool[HARIS_PURE_MSG_POOL_SIZE];
@@ -295,11 +295,12 @@ void free_msg(haris_msg_t* msg) {
 }
 
 void* haris_malloc(size_t size) {
-    extern uint32_t __heap_end__;
+    extern uintptr_t __heap_end__;
+
     static uint8_t* haris_mem_addr = NULL;
 
     if (haris_mem_addr != NULL) {
-        if (((uint32_t)haris_mem_addr + size) > ((uint32_t)&__heap_end__)) {
+        if (((uintptr_t)haris_mem_addr + size) > ((uintptr_t)&__heap_end__)) {
             FATAL("MEM", 0x01);
         }
     }

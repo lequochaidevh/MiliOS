@@ -17,6 +17,8 @@ extern "C" {
 
 #include "haris_message.h"
 
+void haris_banner();
+
 typedef uint8_t task_id_t;
 typedef void (*pf_task)(haris_msg_t*);
 typedef void (*pf_task_polling)();

@@ -16,14 +16,9 @@ extern "C" {
 #include <stdio.h>
 #include <stdint.h>
 
-// #include "haris_log.h"
-void enter_critical(){};
-void exit_critical(){};
+#include "haris_log.h"
 
 // #include "haris_console.h"
-
-#define ENTRY_CRITICAL() enter_critical()
-#define EXIT_CRITICAL()  exit_critical()
 
 typedef void (*pf_haris_ctrl_common)();
 typedef void (*pf_haris_ctrl_delay)(uint32_t);

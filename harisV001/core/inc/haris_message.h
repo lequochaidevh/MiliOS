@@ -18,6 +18,7 @@ extern "C" {
 #include <stdlib.h>
 
 #include "haris_config.h"
+#include "haris_log.h"
 
 #define HARIS_MSG_NULL ((haris_msg_t*)0)
 
