@@ -4,10 +4,17 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/harisV001/common/**",
-                "${workspaceFolder}/harisV001/common/data/**",
-                "${workspaceFolder}/harisV001/core/inc/**",
-                "${workspaceFolder}/harisV001/core/src/**"
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/command/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/container/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/io_xput/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/pch/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/platform/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/platform/plf_interface/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/platform/stm32l/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/platform/stm32l/plf_implement/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/system/**"
             ],
             "compilerPath": "/usr/bin/gcc",
             "cppStandard": "c++17",

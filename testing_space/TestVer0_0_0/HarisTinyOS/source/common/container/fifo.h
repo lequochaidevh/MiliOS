@@ -8,7 +8,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <string.h>
-
+#include "dummy.h"
 #define RET_FIFO_OK (0x01)
 #define RET_FIFO_NG (0x00)
 

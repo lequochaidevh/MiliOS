@@ -11,8 +11,10 @@
 extern "C" {
 #endif
 
-#define __HARIS_PACKETED __attribute__((__packed__))
-#define __HARIS_WEAK     __attribute__((__weak__))
+#define __CORE_PACKETED __attribute__((__packed__))
+#define __CORE_WEAK     __attribute__((__weak__))
+
+#define __CORE_MALLOC_CTRL_SIZE 8
 
 #ifdef __cplusplus
 }
