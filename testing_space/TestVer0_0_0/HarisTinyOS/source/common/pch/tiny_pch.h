@@ -12,6 +12,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "haris_build_option.h"
 #include "dummy.h"

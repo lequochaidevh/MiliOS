@@ -208,13 +208,6 @@ enum {
 #define APP_VER \
     { 0, 0, 0, 1 }
 
-typedef struct {
-    uint32_t magic_number;
-    uint8_t  version[4];
-} app_info_t;
-
-extern const app_info_t app_info;
-
 extern int main_app();
 
 #ifdef __cplusplus

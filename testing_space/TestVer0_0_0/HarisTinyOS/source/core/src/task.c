@@ -349,9 +349,8 @@ void task_sheduler() {
         }
         /* 4. Have task but queue empty */
         else {
-            task_ready &= ~t_tcb->mask;  // Xóa bit lỗi để tránh treo vòng lặp
-            printf("CONTINUTE");
-            continue;  // Nhảy sang tìm task tiếp theo
+            task_ready &= ~t_tcb->mask;  // clear bit error
+            continue;
         }
 
         /* 5. update and process */

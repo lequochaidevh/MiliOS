@@ -32,6 +32,14 @@
 
 #include "app.h"
 
+#define APP_PRINT(fmt, ...) xprintf("[APP PRINT] " fmt, ##__VA_ARGS__)
+
+#if defined(RELEASE)
+const char* app_run_mode = "RELEASE";
+#else
+static const char* app_run_mode = "DEBUG";
+#endif
+
 /* init state machine for tasks
  * used for app tasks
  */
@@ -44,13 +52,9 @@ void app_task_init() {
     task_post_pure_msg(AC_TASK_AIRCOND_SCENE_ID, AC_AIRCOND_SCENE_INIT);
 }
 
-#define APP_PRINT(fmt, ...) xprintf("[PRINT] " fmt, ##__VA_ARGS__)
-
-#if defined(RELEASE)
-const char* app_run_mode = "RELEASE";
-#else
-static const char* app_run_mode = "DEBUG";
-#endif
+void app_start_timer() { /* start timer to toggle life led */
+    APP_PRINT("Start timer\n");
+}
 
 /*****************************************************************************/
 /*  app function declare
@@ -63,10 +67,20 @@ uint32_t sys_soft_reboot_counter __attribute__((section(".non_clear_ram")));
 uint8_t            buffer_console_rev[BUFFER_CONSOLE_REV_SIZE];
 ring_buffer_char_t ring_buffer_console_rev;
 
+typedef struct {
+    uint32_t magic_number;
+    uint8_t  version[4];
+} app_info_t;
+
+const app_info_t app_info{
+    APP_MAGIC_NUMBER,
+    APP_VER,
+};
+
 int main_app() {
-    // APP_PRINT("App run mode: %s, App version: %d.%d.%d.%d\n", app_run_mode,
-    //           app_info.version[0], app_info.version[1], app_info.version[2],
-    //           app_info.version[3]);
+    APP_PRINT("App run mode: %s, App version: %d.%d.%d.%d\n", app_run_mode,
+              app_info.version[0], app_info.version[1], app_info.version[2],
+              app_info.version[3]);
 
     sys_soft_reboot_counter++;
 
@@ -111,8 +125,8 @@ int main_app() {
     /* life led init */
     // led_init(&led_life, led_life_init, led_life_on, led_life_off);
 
-    ring_buffer_char_init(&ring_buffer_console_rev, buffer_console_rev,
-                          BUFFER_CONSOLE_REV_SIZE);
+    // ring_buffer_char_init(&ring_buffer_console_rev, buffer_console_rev,
+    //                       BUFFER_CONSOLE_REV_SIZE);
 
     /* button init */
     // button_init(&btn_mode, 10, BUTTON_MODE_ID, io_button_mode_init,
@@ -171,7 +185,7 @@ int main_app() {
 
     /* start timer for application */
     app_init_state_machine();
-    // app_start_timer();
+    app_start_timer();
 
     /******************************************************************************
      * app task initial
