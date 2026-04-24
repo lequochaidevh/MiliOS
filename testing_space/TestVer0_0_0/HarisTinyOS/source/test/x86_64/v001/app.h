@@ -12,9 +12,12 @@
 extern "C" {
 #endif
 
-#define AK_USER_DEFINE_SIG (10)
+#define CORE_USER_DEFINE_SIG (10)
+
+#define APP_START_ADDR 0x08003000
 
 #include "core.h"
+
 /*****************************************************************************/
 /* SYSTEM task define
  */
@@ -22,7 +25,7 @@ extern "C" {
 /* define timer */
 /* define signal */
 enum {
-    SYSTEM_AK_FLASH_UPDATE_REQ = AK_USER_DEFINE_SIG,
+    SYSTEM_CORE_FLASH_UPDATE_REQ = CORE_USER_DEFINE_SIG,
 };
 
 /*****************************************************************************/
@@ -35,7 +38,7 @@ enum {
 
 /* define signal */
 enum {
-    FW_CRENT_APP_FW_INFO_REQ = AK_USER_DEFINE_SIG,
+    FW_CRENT_APP_FW_INFO_REQ = CORE_USER_DEFINE_SIG,
     FW_CRENT_BOOT_FW_INFO_REQ,
     FW_UPDATE_REQ,
     FW_UPDATE_SM_OK,
@@ -57,7 +60,7 @@ enum {
 
 /* define signal */
 enum {
-    AC_LIFE_SYSTEM_CHECK = AK_USER_DEFINE_SIG,
+    AC_LIFE_SYSTEM_CHECK = CORE_USER_DEFINE_SIG,
 };
 
 /*****************************************************************************/
@@ -68,7 +71,7 @@ enum {
 
 /* define signal */
 enum {
-    AC_SHELL_LOGIN_CMD = AK_USER_DEFINE_SIG,
+    AC_SHELL_LOGIN_CMD = CORE_USER_DEFINE_SIG,
     AC_SHELL_REMOTE_CMD,
 };
 
@@ -80,7 +83,7 @@ enum {
 /* define timer */
 /* define signal */
 enum {
-    AC_RF24_IF_INIT_NETWORK = AK_USER_DEFINE_SIG,
+    AC_RF24_IF_INIT_NETWORK = CORE_USER_DEFINE_SIG,
     AC_RF24_IF_PURE_MSG_OUT,
     AC_RF24_IF_COMMON_MSG_OUT,
     AC_RF24_IF_PURE_MSG_IN,
@@ -94,7 +97,7 @@ enum {
 /* define timer */
 /* define signal */
 enum {
-    AC_IF_PURE_MSG_IN = AK_USER_DEFINE_SIG,
+    AC_IF_PURE_MSG_IN = CORE_USER_DEFINE_SIG,
     AC_IF_PURE_MSG_OUT,
     AC_IF_COMMON_MSG_IN,
     AC_IF_COMMON_MSG_OUT,
@@ -110,7 +113,7 @@ enum {
 /* define signal */
 
 enum {
-    AC_UART_IF_INIT = AK_USER_DEFINE_SIG,
+    AC_UART_IF_INIT = CORE_USER_DEFINE_SIG,
     AC_UART_IF_PURE_MSG_OUT,
     AC_UART_IF_COMMON_MSG_OUT,
     AC_UART_IF_DYNAMIC_MSG_OUT,
@@ -129,7 +132,7 @@ enum {
 
 /* define signal */
 enum {
-    AC_DISPLAY_INITIAL = AK_USER_DEFINE_SIG,
+    AC_DISPLAY_INITIAL = CORE_USER_DEFINE_SIG,
     AC_DISPLAY_BUTON_MODE_RELEASED,
     AC_DISPLAY_BUTON_UP_RELEASED,
     AC_DISPLAY_BUTON_DOWN_RELEASED,
@@ -149,7 +152,7 @@ enum {
 /* define timer */
 /* define signal */
 enum {
-    AC_ZIGBEE_INIT = AK_USER_DEFINE_SIG,
+    AC_ZIGBEE_INIT = CORE_USER_DEFINE_SIG,
     AC_ZIGBEE_FORCE_START_COODINATOR,
     AC_ZIGBEE_START_COODINATOR,
     AC_ZIGBEE_PERMIT_JOINING_REQ,
@@ -165,7 +168,7 @@ enum {
 
 /* define signal */
 enum {
-    AC_AIRCOND_SCENE_INIT = AK_USER_DEFINE_SIG,
+    AC_AIRCOND_SCENE_INIT = CORE_USER_DEFINE_SIG,
     AC_AIRCOND_SCENE_TIMER_SCAN,
     AC_AIRCOND_SCENE_MODE_AUTO_REQ,
     AC_AIRCOND_SCENE_MODE_MANUAL_REQ,
@@ -178,7 +181,7 @@ enum {
 /* define timer */
 /* define signal */
 enum {
-    AC_DBG_TEST_1 = AK_USER_DEFINE_SIG,
+    AC_DBG_TEST_1 = CORE_USER_DEFINE_SIG,
     AC_DBG_TEST_2,
     AC_DBG_TEST_3,
     AC_DBG_TEST_4,

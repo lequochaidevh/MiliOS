@@ -5,10 +5,8 @@
 extern "C" {
 #endif
 
-#include <stdint.h>
-#include <string.h>
-#include <stdbool.h>
-#include "dummy.h"
+#include "ring_buffer.h"
+
 #define RET_RING_BUFFER_OK (0x01)
 #define RET_RING_BUFFER_NG (0x00)
 

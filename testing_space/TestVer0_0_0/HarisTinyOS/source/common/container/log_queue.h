@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 #include "pch.h"
-#include "dummy.h"
+
 #define LOG_QUEUE_RET_OK (0x00)
 #define LOG_QUEUE_RET_NG (0x01)
 

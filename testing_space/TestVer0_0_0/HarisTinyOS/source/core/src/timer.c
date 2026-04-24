@@ -9,7 +9,7 @@
 
 #include "timer.h"
 
-// #include "sys_dbg.h"
+#include "sys_dbg.h"
 #include "task_list.h"
 
 /* define message data is transfered between interrupt heart beat and timer task

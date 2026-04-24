@@ -17,6 +17,9 @@
 #include <array>
 #include <map>
 
+#include <thread>
+#include <chrono>
+
 /* kernel include */
 #include "core.h"
 #include "message.h"
@@ -31,8 +34,7 @@
 #include "dummy.h"
 
 #include "app.h"
-
-#define APP_PRINT(fmt, ...) xprintf("[APP PRINT] " fmt, ##__VA_ARGS__)
+#include "app_dbg.h"
 
 #if defined(RELEASE)
 const char* app_run_mode = "RELEASE";
@@ -61,7 +63,7 @@ void app_start_timer() { /* start timer to toggle life led */
  */
 /*****************************************************************************/
 
-uint32_t sys_soft_reboot_counter __attribute__((section(".non_clear_ram")));
+// uint32_t sys_soft_reboot_counter __attribute__((section(".non_clear_ram")));
 
 #define BUFFER_CONSOLE_REV_SIZE (256)
 uint8_t            buffer_console_rev[BUFFER_CONSOLE_REV_SIZE];
@@ -82,7 +84,7 @@ int main_app() {
               app_info.version[0], app_info.version[1], app_info.version[2],
               app_info.version[3]);
 
-    sys_soft_reboot_counter++;
+    // sys_soft_reboot_counter++;
 
     /******************************************************************************
      * init active kernel
@@ -92,6 +94,15 @@ int main_app() {
     task_create((task_t*)app_task_table);
     task_polling_create((task_polling_t*)app_task_polling_table);
     EXIT_CRITICAL();
+
+    // Trigger task life first time
+    // 1. get a new pool mesage
+    core_msg_t* msg = get_pure_msg();
+    if (msg != CORE_MSG_NULL) {
+        msg->sig = AC_LIFE_SYSTEM_CHECK;  // Assign signal case
+        // 2. Post message
+        task_post(AC_TASK_LIFE_ID, msg);
+    }
 
     /******************************************************************************
      * init applications
@@ -151,12 +162,12 @@ int main_app() {
 
     /* increase start time */
     //     fatal_log_t app_fatal_log;
-    //     flash_read(APP_FLASH_AK_DBG_FATAL_LOG_SECTOR,
+    //     flash_read(APP_FLASH_CORE_DBG_FATAL_LOG_SECTOR,
     //                reinterpret_cast<uint8_t*>(&app_fatal_log),
     //                sizeof(fatal_log_t));
     //     app_fatal_log.restart_times++;
-    //     flash_erase_sector(APP_FLASH_AK_DBG_FATAL_LOG_SECTOR);
-    //     flash_write(APP_FLASH_AK_DBG_FATAL_LOG_SECTOR,
+    //     flash_erase_sector(APP_FLASH_CORE_DBG_FATAL_LOG_SECTOR);
+    //     flash_write(APP_FLASH_CORE_DBG_FATAL_LOG_SECTOR,
     //                 reinterpret_cast<uint8_t*>(&app_fatal_log),
     //                 sizeof(fatal_log_t));
 

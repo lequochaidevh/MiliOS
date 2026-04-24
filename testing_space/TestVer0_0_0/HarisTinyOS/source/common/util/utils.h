@@ -12,8 +12,7 @@
 extern "C" {
 #endif
 
-#include <stdint.h>
-#include <string.h>
+#include "pch.h"
 
 extern uint32_t str_len(const int8_t *str);
 

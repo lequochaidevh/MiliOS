@@ -7,8 +7,7 @@
 
 #include "debug.h"
 #include "task.h"
-// #include "sys_dbg.h"
-#include "dummy.h"
+#include "sys_dbg.h"
 
 /* common pool memory */
 static core_msg_common_t msg_common_pool[CORE_COMMON_MSG_POOL_SIZE];
@@ -60,7 +59,7 @@ void msg_free(core_msg_t* msg) {
                 break;
 
             default:
-                // FATAL("MF", 0x20);
+                FATAL("MF", 0x20);
                 break;
         }
     }

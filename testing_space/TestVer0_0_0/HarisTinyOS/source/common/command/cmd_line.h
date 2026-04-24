@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-#include <stdint.h>
+#include "pch.h"
 
 #define MAX_CMD_SIZE 12
 

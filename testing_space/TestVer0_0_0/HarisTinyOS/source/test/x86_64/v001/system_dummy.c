@@ -1,6 +1,11 @@
+/**
+ ******************************************************************************
+ * @Author: HaiLQ
+ * @Date:   25/04/2026
+ ******************************************************************************
+ **/
 #include "xprintf.h"
 #include "system_dummy.h"
-// #include "dummy.h"
 #include "pch.h"
 
 void sys_ctrl_shell_put_char(uint8_t c) {
@@ -28,3 +33,14 @@ void dummy_system_init() {
                           RING_BUFFER_CHAR_SHELL_SEND_BUFFER_SIZE);
     xfunc_output = (void (*)(int))sys_ctrl_shell_put_char;
 }
+
+/*
+Fake: sys_ctrl.h
+*/
+#include "sys_ctrl.h"
+
+uint32_t sys_ctrl_millis() {
+    xprintf("system call millis not work\n");
+    return 1;
+}
+uint32_t sys_ctr_get_exception_number() { return 0; }

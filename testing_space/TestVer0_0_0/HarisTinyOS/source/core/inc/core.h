@@ -15,9 +15,6 @@ extern "C" {
 
 #include "pch.h"
 
-// #include "fsm.h"
-// #include "task.h"
-
 /*****************************************************************************
  * DEFINITION: active kernel
  *

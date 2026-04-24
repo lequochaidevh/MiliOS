@@ -6,7 +6,6 @@
  **/
 
 #include "utils.h"
-#include <stdint.h>
 
 uint32_t str_len(const int8_t *str) {
     uint8_t length = 0;

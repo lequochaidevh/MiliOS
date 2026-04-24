@@ -10,11 +10,8 @@
                 "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/container/**",
                 "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/io_xput/**",
                 "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/pch/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/platform/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/platform/plf_interface/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/platform/stm32l/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/platform/stm32l/plf_implement/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/system/**"
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/test/x86_64/v001/**",
+                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/test/x86_64/v001/fake_sys_inc**"
             ],
             "compilerPath": "/usr/bin/gcc",
             "cppStandard": "c++17",

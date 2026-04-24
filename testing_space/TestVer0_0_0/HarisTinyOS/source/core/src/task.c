@@ -13,10 +13,8 @@
 #include "timer.h"
 #include "message.h"
 
-// #include "sys_dbg.h"
-// #include "sys_ctrl.h"
-uint32_t sys_ctrl_millis() { return 1; }
-uint32_t sys_ctr_get_exception_number() { return 0; }
+#include "sys_dbg.h"
+#include "sys_ctrl.h"
 
 #include "utils.h"
 #include "log_queue.h"
@@ -71,12 +69,14 @@ __CORE_WEAK void task_irq_io_exit_trigger() {
 
 void task_create(task_t* task_tbl) {
     uint8_t idx = 0;
+
     if (task_tbl) {
         task_table = task_tbl;
         while (task_tbl[idx].id != CORE_TASK_EOT_ID) {
             idx++;
         }
         task_table_size = idx;
+        xprintf("TASK TABLE SIZE = %d\n", task_table_size);
     } else {
         FATAL("TK", 0x01);
     }
@@ -322,45 +322,39 @@ void task_polling_run() {
     }
 }
 
+#define NEW_FIX_SEGMENT_FAULT 2
+
 void task_sheduler() {
     uint8_t t_task_new;
 
     ENTRY_CRITICAL();
+    if (task_ready == 0) printf("DEBUG: task_ready = 0x%X\n", task_ready);
 
     uint8_t t_task_current = task_current;
 
     while ((t_task_new = LOG2LKUP(task_ready)) > t_task_current) {
-        /* 1. get TCB of the task with highest priority */
+        /* get task */
         tcb_t* t_tcb = &task_pri_queue[t_task_new - 1];
 
-        /* 2. get first message in the queue */
+        /* get message */
         core_msg_t* t_msg = t_tcb->qhead;
+        t_tcb->qhead      = t_msg->next;
 
-        /* 3.Check safety: What if have message got */
-        if (t_msg != CORE_MSG_NULL) {
-            // update queue and jump to next node
-            t_tcb->qhead = t_msg->next;
-
-            // if this is the end of the message -> clean it
-            if (t_tcb->qhead == CORE_MSG_NULL) {
-                t_tcb->qtail = CORE_MSG_NULL;
-                task_ready &= ~t_tcb->mask;
-            }
-        }
-        /* 4. Have task but queue empty */
-        else {
-            task_ready &= ~t_tcb->mask;  // clear bit error
-            continue;
+        /* last message of queue */
+        if (t_msg->next == CORE_MSG_NULL) {
+            t_tcb->qtail = CORE_MSG_NULL;
+            /* change status of task to inactive */
+            task_ready &= ~t_tcb->mask;
         }
 
-        /* 5. update and process */
+        /* update and process */
         task_current = t_task_new;
 
         /* start task debug */
 #if defined(CORE_TASK_OBJ_LOG_ENABLE) || defined(CORE_TASK_LOG_CONSOLE_ENABLE)
         t_msg->dbg_handler.start_exe = sys_ctrl_millis();
 #endif
-        /* update current ak object */
+        /* update current core object */
         memcpy(&current_task_info, &task_table[t_msg->des_task_id],
                sizeof(task_t));
         memcpy(&current_active_object, t_msg, sizeof(core_msg_t));
