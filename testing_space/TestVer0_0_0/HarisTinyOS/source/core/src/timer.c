@@ -190,6 +190,7 @@ uint8_t timer_set(task_id_t des_task_id, timer_sig_t sig, uint32_t duty,
             timer_msg = timer_msg->next;
         }
     }
+    EXIT_CRITICAL();
 
     timer_msg = get_timer_msg();
 

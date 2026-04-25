@@ -55,15 +55,6 @@ void task_life(core_msg_t* msg) {
         default:
             break;
     }
-
-    // 1. Get a message empty from pool
-    core_msg_t* msg_continue = get_pure_msg();
-    if (msg_continue != CORE_MSG_NULL) {
-        msg_continue->sig = AC_LIFE_SYSTEM_CHECK;  // Assign signal callback
-        // 2. Post message to it self. (ID)
-        task_post(AC_TASK_LIFE_ID, msg_continue);
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(750));
 }
 
 void task_polling_zigbee(){};

@@ -18,6 +18,9 @@ extern "C" {
 
 #include "core.h"
 
+/*User App will declare function interrupt*/
+#include "sys_irq.h"
+
 /*****************************************************************************/
 /* SYSTEM task define
  */
@@ -61,6 +64,10 @@ enum {
 /* define signal */
 enum {
     AC_LIFE_SYSTEM_CHECK = CORE_USER_DEFINE_SIG,
+};
+
+enum {
+    AC_LIFE_SYSTEM_INIT = CORE_USER_DEFINE_SIG,
 };
 
 /*****************************************************************************/

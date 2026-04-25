@@ -36,6 +36,9 @@
 #include "app.h"
 #include "app_dbg.h"
 
+// START TIMER PLATFORM HANDLER
+#include "system.h"
+
 #if defined(RELEASE)
 const char* app_run_mode = "RELEASE";
 #else
@@ -48,14 +51,18 @@ static const char* app_run_mode = "DEBUG";
 void app_init_state_machine() {}
 
 void app_task_init() {
-    task_post_pure_msg(AC_TASK_RF24_IF_ID, AC_RF24_IF_INIT_NETWORK);
-    task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_INITIAL);
-    task_post_pure_msg(AC_TASK_UART_IF_ID, AC_UART_IF_INIT);
-    task_post_pure_msg(AC_TASK_AIRCOND_SCENE_ID, AC_AIRCOND_SCENE_INIT);
+    // task_post_pure_msg(AC_TASK_RF24_IF_ID, AC_RF24_IF_INIT_NETWORK);
+    // task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_INITIAL);
+    // task_post_pure_msg(AC_TASK_UART_IF_ID, AC_UART_IF_INIT);
+    // task_post_pure_msg(AC_TASK_AIRCOND_SCENE_ID, AC_AIRCOND_SCENE_INIT);
+    task_post_pure_msg(AC_TASK_LIFE_ID, 10);
 }
 
 void app_start_timer() { /* start timer to toggle life led */
     APP_PRINT("Start timer\n");
+
+    timer_set(AC_TASK_LIFE_ID, AC_LIFE_SYSTEM_CHECK,
+              AC_LIFE_TASK_TIMER_LED_LIFE_INTERVAL, TIMER_PERIODIC);
 }
 
 /*****************************************************************************/
@@ -79,7 +86,30 @@ const app_info_t app_info{
     APP_VER,
 };
 
+/*User app declare interrupt implemetation*/
+void sys_irq_nrf24l01(){};
+void sys_irq_shell(){};
+void sys_irq_uart2(){};
+void sys_irq_ir_io_rev(){};
+void sys_irq_timer_1us(){};
+void sys_irq_timer_50us(){};
+
+void sys_irq_timer_10ms() {
+    static uint16_t counter = 1;
+    counter++;
+
+    if (counter == 100) {  // 10 * 100 = 1000ms = 1s
+        counter = 0;
+        xprintf("------ Timer 10ms Log every 1s with info ------\n");
+        xprintf(" Timer 10ms have executed 10 functions callback\n");
+    }
+};
+
+void sys_irq_timer_hs1101(){};
+void sys_irq_usb_recv(uint8_t* data, uint32_t len){};
+
 int main_app() {
+    start_system_tick_thread_dummy();
     APP_PRINT("App run mode: %s, App version: %d.%d.%d.%d\n", app_run_mode,
               app_info.version[0], app_info.version[1], app_info.version[2],
               app_info.version[3]);
@@ -89,20 +119,20 @@ int main_app() {
     /******************************************************************************
      * init active kernel
      *******************************************************************************/
-    ENTRY_CRITICAL();
+    // ENTRY_CRITICAL();
     task_init();
     task_create((task_t*)app_task_table);
     task_polling_create((task_polling_t*)app_task_polling_table);
-    EXIT_CRITICAL();
+    // EXIT_CRITICAL();
 
     // Trigger task life first time
     // 1. get a new pool mesage
-    core_msg_t* msg = get_pure_msg();
-    if (msg != CORE_MSG_NULL) {
-        msg->sig = AC_LIFE_SYSTEM_CHECK;  // Assign signal case
-        // 2. Post message
-        task_post(AC_TASK_LIFE_ID, msg);
-    }
+    // core_msg_t* msg = get_pure_msg();
+    // if (msg != CORE_MSG_NULL) {
+    //     msg->sig = AC_LIFE_SYSTEM_CHECK;  // Assign signal case
+    //     // 2. Post message
+    //     task_post(AC_TASK_LIFE_ID, msg);
+    // }
 
     /******************************************************************************
      * init applications

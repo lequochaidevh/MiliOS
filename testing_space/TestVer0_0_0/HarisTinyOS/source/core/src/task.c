@@ -282,6 +282,9 @@ int task_run() {
     for (;;) {
         task_sheduler();
         task_polling_run();
+#if (SAVE_CPU_x86_64 == 1)
+        usleep(3300);
+#endif
     }
 }
 
@@ -322,23 +325,24 @@ void task_polling_run() {
     }
 }
 
-#define NEW_FIX_SEGMENT_FAULT 2
-
 void task_sheduler() {
     uint8_t t_task_new;
 
-    ENTRY_CRITICAL();
-    if (task_ready == 0) printf("DEBUG: task_ready = 0x%X\n", task_ready);
-
     uint8_t t_task_current = task_current;
 
-    while ((t_task_new = LOG2LKUP(task_ready)) > t_task_current) {
+    while (1) {
+        ENTRY_CRITICAL();
+        if (!((t_task_new = LOG2LKUP(task_ready)) > t_task_current)) break;
         /* get task */
         tcb_t* t_tcb = &task_pri_queue[t_task_new - 1];
 
         /* get message */
         core_msg_t* t_msg = t_tcb->qhead;
-        t_tcb->qhead      = t_msg->next;
+        if (t_msg == NULL) {
+            break;
+        }
+
+        t_tcb->qhead = t_msg->next;
 
         /* last message of queue */
         if (t_msg->next == CORE_MSG_NULL) {
@@ -426,10 +430,10 @@ void task_sheduler() {
 
 #endif
 
+        EXIT_CRITICAL();
         /* check and free message */
         msg_free(t_msg);
     }
-
     task_current = t_task_current;
 
     current_task_id = CORE_TASK_IDLE_ID;

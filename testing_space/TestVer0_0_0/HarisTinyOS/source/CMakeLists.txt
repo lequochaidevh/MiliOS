@@ -23,5 +23,12 @@ add_executable(${PROJECT_NAME} ${COMMON_SOURCES} ${CORE_SOURCES} ${APP_SOURCES} 
 
 # add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
+find_package(Threads REQUIRED)
+
+target_link_libraries(dummy_app PRIVATE Threads::Threads)
+
+# This is equivalent to: #define SAVE_CPU_x86_64 : CPU 100 ->  30fps - 4%
+target_compile_definitions(dummy_app PRIVATE SAVE_CPU_x86_64=1)
+
 set(CMAKE_C_STANDARD 99)
 add_definitions(-DHARIS_KERNEL_VERSION="0.0.1")

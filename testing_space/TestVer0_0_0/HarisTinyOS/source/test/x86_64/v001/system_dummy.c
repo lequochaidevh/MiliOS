@@ -23,7 +23,6 @@ void sys_ctrl_shell_put_char(uint8_t c) {
     // EXIT_CRITICAL();
 
     if (_flag_trigger) {
-        // printf("_flag_trigger with DUMMY UART\n");
     }
 }
 
