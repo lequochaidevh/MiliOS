@@ -5,3 +5,4 @@ build/
 *.notrack
 reference/repo/
 *_build_*/
+**/source/CMakeLists.txt
