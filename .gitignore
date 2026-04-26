@@ -4,4 +4,4 @@ build/
 *_ignore
 *.notrack
 reference/repo/
-x86_64_build/
+*_build_*/
