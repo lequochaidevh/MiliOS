@@ -102,6 +102,10 @@ void task_post(task_id_t des_task_id, core_msg_t* msg) {
         FATAL("TK", 0x02);
     }
 
+    // Issue: Application
+    // with task_table[des_task_id].pri only init with start pri >= 1;
+    // (ex: 1 - 7) NOT 0 -> will bug
+
     t_tcb = &task_pri_queue[task_table[des_task_id].pri - 1];
 
     ENTRY_CRITICAL();
