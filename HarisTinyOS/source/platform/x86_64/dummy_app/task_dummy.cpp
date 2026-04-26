@@ -12,6 +12,8 @@
 #include <thread>
 #include <chrono>
 
+#include "hal_device_config.h"
+
 #define APP_START_ADDR 0x08003000
 
 void task_system(core_msg_t* msg) {
@@ -39,6 +41,16 @@ void task_system(core_msg_t* msg) {
 }
 
 void task_life(core_msg_t* msg) {
+    const led_attr_t* const led_data =
+        (led_attr_t*)active_devices[0].private_data;  //
+                                                      // for cast
+
+    static const uint8_t led_dbg_init_once =
+        device_initialize(&active_devices[GROUP_LED_LIFE_DBG_ID]);
+
+    static uint8_t test_disable_device_cnt = 0;  // test by log
+    test_disable_device_cnt++;
+
     switch (msg->sig) {
         case AC_LIFE_SYSTEM_CHECK:
             /* reset watchdog */
@@ -46,10 +58,28 @@ void task_life(core_msg_t* msg) {
 
 #if defined(CORE_IO_IRQ_ANALYZER)
 #else
+            // led_data = (led_attr_t*)active_devices[0].private_data;  // for
+            // cast
+
+            active_devices[0].ops->process_fn(active_devices[0].private_data);
             /* toggle led indicator */
-            static bool led_toggle_status = 0;
-            led_toggle_status             = !led_toggle_status;
-            xprintf("--- Hearth beat = %d ---\n", led_toggle_status);
+            xprintf("       --- Hearth beat = %s %d ---\n\n",
+                    active_devices[0].name, led_data->state);
+
+            if (test_disable_device_cnt > 5) {
+                // test: disable -> state not change after process_fn
+                active_devices[0].ops->set_active_fn(
+                    active_devices[0].private_data, DEVICE_STATUS_DISABLE);
+            }
+
+            if (test_disable_device_cnt > 11) {
+                // test: multi init will be warning
+                device_initialize(&active_devices[GROUP_LED_LIFE_DBG_ID]);
+
+                // test: enable device -> process_fn work ok
+                active_devices[0].ops->set_active_fn(
+                    active_devices[0].private_data, DEVICE_STATUS_ENABLE);
+            }
 #endif
             break;
 

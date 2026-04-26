@@ -9,7 +9,10 @@ include_directories(
     common/pch
     common/util
     core/inc
+    core/device
+    platform/common_driver/led_life_dbg
     platform/x86_64/dummy_app/
+    platform/x86_64/dummy_app/hal
     platform/x86_64/dummy_app/sys/inc
 )
 
@@ -19,7 +22,9 @@ file(GLOB_RECURSE APP_SOURCES "application/*.cpp")
 file(GLOB_RECURSE TEST_SOURCES "platform/x86_64/dummy_app/*.cpp")
 file(GLOB_RECURSE TEST_C_SOURCES "platform/x86_64/dummy_app/*.c")
 
-add_executable(${PROJECT_NAME} ${COMMON_SOURCES} ${CORE_SOURCES} ${APP_SOURCES} ${TEST_SOURCES} ${TEST_C_SOURCES})
+file(GLOB_RECURSE DRIVER_CM_C_SOURCES "platform/common_driver/led_life_dbg/*.c")
+
+add_executable(${PROJECT_NAME} ${COMMON_SOURCES} ${CORE_SOURCES} ${APP_SOURCES} ${TEST_SOURCES} ${TEST_C_SOURCES} ${DRIVER_CM_C_SOURCES})
 
 # add_library(${PROJECT_NAME} STATIC ${SOURCES})
 

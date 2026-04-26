@@ -10,6 +10,7 @@
                 "${workspaceFolder}/HarisTinyOS/source/common/container/**",
                 "${workspaceFolder}/HarisTinyOS/source/common/io_xput/**",
                 "${workspaceFolder}/HarisTinyOS/source/common/pch/**",
+                "${workspaceFolder}/HarisTinyOS/source/platform/common_driver/**",
                 "${workspaceFolder}/HarisTinyOS/source/platform/x86_64/dummy_app/**",
                 "${workspaceFolder}/HarisTinyOS/source/platform/x86_64/dummy_app/sys/inc**"
             ],
