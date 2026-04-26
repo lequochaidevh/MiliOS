@@ -1,7 +1,8 @@
 /**
  ******************************************************************************
- * @Author: HaiLQ
- * @Date:   25/04/2026
+ * @author: HaiLQ
+ * @date:   25/04/2026
+ * @details: System Dummy Header and Global Variable Declaration
  ******************************************************************************
  **/
 #ifndef SYSTEM_DUMMY_H

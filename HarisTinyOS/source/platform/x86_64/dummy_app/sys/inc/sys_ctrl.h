@@ -1,7 +1,8 @@
 /**
  ******************************************************************************
- * @Author: HaiLQ
- * @Date:   25/04/2026
+ * @author: HaiLQ
+ * @date:   25/04/2026
+ * @details: Dummy System Define Temporary Functions.
  ******************************************************************************
  **/
 #ifndef __SYS_CTRL_H__
@@ -11,10 +12,12 @@
 extern "C" {
 #endif
 
-/* get current 1ms system timer variable */
-extern uint32_t sys_ctrl_millis();
+#include "pch.h"
 
-extern uint32_t sys_ctr_get_exception_number();
+/* get current 1ms system timer variable */
+extern uint32_t sys_ctrl_millis();  // empty
+
+extern uint32_t sys_ctr_get_exception_number();  // empty
 
 #ifdef __cplusplus
 }

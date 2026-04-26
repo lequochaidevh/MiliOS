@@ -4,14 +4,14 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/command/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/container/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/io_xput/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/common/pch/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/test/x86_64/v001/**",
-                "${workspaceFolder}/testing_space/TestVer0_0_0/HarisTinyOS/source/test/x86_64/v001/fake_sys_inc**"
+                "${workspaceFolder}/HarisTinyOS/source/**",
+                "${workspaceFolder}/HarisTinyOS/source/common/**",
+                "${workspaceFolder}/HarisTinyOS/source/common/command/**",
+                "${workspaceFolder}/HarisTinyOS/source/common/container/**",
+                "${workspaceFolder}/HarisTinyOS/source/common/io_xput/**",
+                "${workspaceFolder}/HarisTinyOS/source/common/pch/**",
+                "${workspaceFolder}/HarisTinyOS/source/platform/x86_64/dummy_app/**",
+                "${workspaceFolder}/HarisTinyOS/source/platform/x86_64/dummy_app/sys/inc**"
             ],
             "compilerPath": "/usr/bin/gcc",
             "cppStandard": "c++17",
